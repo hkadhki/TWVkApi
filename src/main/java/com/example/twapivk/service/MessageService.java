@@ -5,7 +5,6 @@ import com.example.twapivk.model.MessageObject;
 import com.example.twapivk.repository.MessageRepository;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -14,10 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,6 +25,7 @@ public class MessageService {
 
     @Value("${message.accessToken}")
     private String accessToken;
+
     private Random random;
     private final MessageRepository repository;
 
@@ -38,10 +34,10 @@ public class MessageService {
         this.random = new Random();
     }
 
-    public void send(MessageObject messageObject)  {
+    public void mirror(MessageObject messageObject, String secretKey)  {
 
         // Создаем объект класса Message
-        Message message = new Message(messageObject.getUserId(),random.nextInt(),messageObject.getMessage(), v, accessToken);
+        Message message = new Message(messageObject.getFromId(),random.nextInt(),messageObject.getText(), v);
 
         //Создаем Post запрос
         final HttpPost httpPost = new HttpPost("https://api.vk.com/method/messages.send");
@@ -52,7 +48,7 @@ public class MessageService {
         params.add(new BasicNameValuePair("random_id", message.getRandomId().toString()));
         params.add(new BasicNameValuePair("message","Вы сказали: " + message.getMessageText()));
         params.add(new BasicNameValuePair("v", message.getV()));
-        params.add(new BasicNameValuePair("access_token", message.getAccessToken()));
+        params.add(new BasicNameValuePair("access_token", accessToken));
 
         //Отправляем запрос
         try (CloseableHttpClient client = HttpClients.createDefault()){
@@ -61,7 +57,8 @@ public class MessageService {
         }catch (IOException e){
             e.getMessage();
         }
-        //repository.save(message);
+
+        repository.save(message);
 
     }
 }

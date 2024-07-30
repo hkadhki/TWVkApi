@@ -5,39 +5,36 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+
 
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
+@Entity
 @Data
-//@Table(name = "message")
+@Table(name = "message")
 public class Message {
 
-    //@Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@Column(name = "user_id")
+    @Column(name = "user_id")
     private Integer userId;
 
-    //@Column(name = "random_id")
+    @Column(name = "random_id")
     private Integer randomId;
 
-   // @Column(name = "message_text")
+    @Column(name = "message_text")
     private String messageText;
 
-//    @Column(name = "v")
+    @Column(name = "v")
     private String v;
 
-//    @Column(name = "access_token")
-    private String accessToken;
 
-    public Message(int userId, int randomId, String message, String v, String accessToken){
+    public Message(int userId, int randomId, String message, String v){
         this.v = v;
-        this.accessToken = accessToken;
         this.userId = userId;
         this.messageText = message;
         this.randomId = randomId;

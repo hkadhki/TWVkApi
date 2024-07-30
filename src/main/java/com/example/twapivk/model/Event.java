@@ -1,24 +1,23 @@
 package com.example.twapivk.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class MessageRequest {
+public class Event {
     @JsonProperty("type")
     private String type;
 
-    @JsonProperty("event_id")
-    private int eventID;
-
-    @JsonProperty("v")
-    private String v;
-
     @JsonProperty("object")
-    private MessageObject object;
+    private MessageNew object;
 
     @JsonProperty("group_id")
     private int groupId;
+
+    @JsonProperty("secret")
+    private String secretKey;
 }
