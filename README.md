@@ -55,3 +55,30 @@ message.accessToken = dasfasfasfasfafas
 ## Порты
 - По-умолчанию программа запускается на порте 8080 
 - В приложении используется база данных PostgreSQL. Запускается на порте 5432.
+
+ ---
+## JSON получаемый сервером имеет вид:
+
+для сообщения:
+```JSON 
+{
+    "group_id": 226740771,
+    "type": "message_new",
+    "event_id": "31ed8f631e5be0ead9d368b2b50e0ea479fe96c0",
+    "v": "5.199",
+    "object": {
+        "message": {
+            "from_id": 196057466,
+            "text": "ghjk"
+        },
+    },
+    "secret": "aaqaASD123ASFs1"
+}
+```
+для подтверждения адреса:
+```JSON 
+{ 
+    "type": "confirmation",
+    "group_id": 226740771 
+}
+``` 
